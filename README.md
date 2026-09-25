@@ -192,8 +192,8 @@ The project consists of a frontend application and a backend API.
           │ AI / Risk │  │ Services  │  │ Database │
           │ Analysis  │  │           │  │          │
           └───────────┘  └───────────┘  └──────────┘
-
-          DisasterShield AI
+          
+DisasterShield AI
 │
 ├── Overview
 ├── Objectives
