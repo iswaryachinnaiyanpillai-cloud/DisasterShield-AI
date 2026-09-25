@@ -1,0 +1,2193 @@
+/* =========================================================
+   EMERGENCY CENTRE
+========================================================= */
+
+.citizen-centres-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px;
+  background: #f7f9fc;
+  color: #172033;
+}
+
+.citizen-centres-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.citizen-centres-eyebrow {
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.citizen-centres-header h1 {
+  margin: 0;
+  font-size: 29px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.citizen-centres-header p {
+  margin: 8px 0 0;
+  color: #697386;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.citizen-centres-location-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 15px;
+  border: 1px solid #dbe3ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.citizen-centres-location-button:hover {
+  border-color: #2563eb;
+}
+
+/* =========================================================
+   LOCATION STATUS
+========================================================= */
+
+.citizen-centres-location-warning,
+.citizen-centres-location-success {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.citizen-centres-location-warning {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+
+.citizen-centres-location-success {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  color: #047857;
+}
+
+.citizen-centres-location-warning span {
+  flex: 1;
+}
+
+.citizen-centres-location-warning button {
+  border: none;
+  background: transparent;
+  color: #c2410c;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.citizen-centres-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.citizen-centres-filters {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.citizen-centres-filters button {
+  padding: 9px 13px;
+  border: 1px solid #e0e6ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.citizen-centres-filters button:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.citizen-centres-filters button.active {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.citizen-centres-search {
+  width: 280px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  border: 1px solid #dfe5ed;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.citizen-centres-search svg {
+  flex-shrink: 0;
+  color: #8b95a7;
+}
+
+.citizen-centres-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #172033;
+  font-size: 12px;
+}
+
+.citizen-centres-search input::placeholder {
+  color: #9aa3b2;
+}
+
+.citizen-centres-search button {
+  display: flex;
+  border: none;
+  background: transparent;
+  color: #8b95a7;
+  cursor: pointer;
+}
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.citizen-centres-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.citizen-centres-list,
+.citizen-centres-side-map {
+  background: #fff;
+  border: 1px solid #e4e9f0;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.citizen-centres-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.citizen-centres-list-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.citizen-centres-list-header span {
+  display: block;
+  margin-top: 4px;
+  color: #8992a3;
+  font-size: 11px;
+}
+
+.citizen-centres-nearest {
+  padding: 7px 9px;
+  margin: 0 !important;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #2563eb !important;
+  font-size: 9px !important;
+  font-weight: 800;
+}
+
+/* =========================================================
+   CENTRE CARDS
+========================================================= */
+
+.citizen-centres-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.citizen-centre-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 17px 20px;
+  border-bottom: 1px solid #edf0f4;
+  transition: 0.2s ease;
+}
+
+.citizen-centre-card:last-child {
+  border-bottom: none;
+}
+
+.citizen-centre-card:hover,
+.citizen-centre-card.selected {
+  background: #f8fbff;
+}
+
+.citizen-centre-card-main {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.citizen-centre-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+}
+
+.citizen-centre-icon.hospital {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.citizen-centre-icon.police {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.citizen-centre-icon.fire {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.citizen-centre-content {
+  min-width: 0;
+}
+
+.citizen-centre-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.citizen-centre-title-row h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.citizen-centre-open {
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.citizen-centre-location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  color: #737d90;
+  font-size: 11px;
+}
+
+.citizen-centre-meta {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.citizen-centre-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+  font-size: 10px;
+}
+
+.citizen-centre-services {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+.citizen-centre-services span {
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.citizen-centre-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.citizen-centre-map-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 11px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.citizen-centre-map-button:hover {
+  background: #1d4ed8;
+}
+
+.citizen-centre-call-button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dbe3ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #047857;
+  cursor: pointer;
+}
+
+.citizen-centre-call-button:hover {
+  background: #ecfdf5;
+}
+
+/* =========================================================
+   SIDE MAP
+========================================================= */
+
+.citizen-centres-side-map {
+  position: sticky;
+  top: 20px;
+}
+
+.citizen-centres-side-map-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 18px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.citizen-centres-side-map-header div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.citizen-centres-side-map-header span {
+  color: #2563eb;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.citizen-centres-side-map-header strong {
+  font-size: 14px;
+}
+
+.citizen-centres-side-map-header > svg {
+  color: #2563eb;
+}
+
+.citizen-centres-side-map-body {
+  height: 440px;
+}
+
+.citizen-centres-mini-map {
+  width: 100%;
+  height: 100%;
+}
+
+.citizen-centres-map-permission {
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 9px;
+  background: #f8fafc;
+  color: #64748b;
+}
+
+.citizen-centres-map-permission svg {
+  color: #2563eb;
+}
+
+.citizen-centres-map-permission strong {
+  color: #172033;
+  font-size: 14px;
+}
+
+.citizen-centres-map-permission span {
+  max-width: 230px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.citizen-centres-map-permission button {
+  margin-top: 7px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 7px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* =========================================================
+   CUSTOM MAP MARKERS
+========================================================= */
+
+.citizen-centre-map-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+.citizen-centre-marker {
+  width: 29px;
+  height: 29px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.35);
+}
+
+.citizen-centre-marker span {
+  line-height: 1;
+  font-size: 14px;
+}
+
+.citizen-centre-marker-user {
+  background: #2563eb;
+}
+
+.citizen-centre-marker-hospital {
+  background: #dc2626;
+}
+
+.citizen-centre-marker-police {
+  background: #7c3aed;
+}
+
+.citizen-centre-marker-fire {
+  background: #ea580c;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.citizen-centres-empty {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.citizen-centres-empty h3 {
+  margin: 12px 0 5px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.citizen-centres-empty p {
+  margin: 0;
+  font-size: 11px;
+}
+
+/* =========================================================
+   ROUTE OVERLAY
+========================================================= */
+
+.citizen-centres-route-overlay {
+  position: fixed;
+  z-index: 3000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: rgba(15, 23, 42, 0.58);
+}
+
+.citizen-centres-route-panel {
+  width: min(1100px, 100%);
+  max-height: calc(100vh - 50px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 25px 70px rgba(15, 23, 42, 0.28);
+}
+
+.citizen-centres-route-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 19px 21px;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.citizen-centres-route-header span {
+  color: #2563eb;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.citizen-centres-route-header h2 {
+  margin: 5px 0 3px;
+  font-size: 18px;
+}
+
+.citizen-centres-route-header p {
+  margin: 0;
+  color: #737d90;
+  font-size: 11px;
+}
+
+.citizen-centres-route-header > button {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e6ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.citizen-centres-route-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.citizen-centres-route-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+}
+
+.citizen-centres-route-stats > div:first-child {
+  border-right: 1px solid #e8edf3;
+}
+
+.citizen-centres-route-stats svg {
+  color: #2563eb;
+}
+
+.citizen-centres-route-stats span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.citizen-centres-route-stats small {
+  color: #8b95a7;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.citizen-centres-route-stats strong {
+  font-size: 13px;
+}
+
+.citizen-centres-route-map {
+  position: relative;
+  height: min(57vh, 520px);
+  min-height: 330px;
+}
+
+.citizen-centres-full-map {
+  width: 100%;
+  height: 100%;
+}
+
+.citizen-centres-route-loading {
+  position: absolute;
+  z-index: 1000;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 5px 20px rgba(15, 23, 42, 0.15);
+  text-align: center;
+}
+
+.citizen-centres-route-loading svg {
+  color: #2563eb;
+}
+
+.citizen-centres-route-loading strong {
+  font-size: 11px;
+}
+
+.citizen-centres-route-loading span {
+  color: #737d90;
+  font-size: 9px;
+}
+
+.citizen-centres-map-legend {
+  position: absolute;
+  z-index: 1000;
+  left: 14px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.14);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.citizen-centres-map-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.citizen-centres-map-legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.citizen-centres-map-legend i.user {
+  background: #2563eb;
+}
+
+.citizen-centres-map-legend i.centre {
+  background: #dc2626;
+}
+
+.citizen-centres-map-legend i.route {
+  width: 19px;
+  height: 4px;
+  border-radius: 3px;
+  background: #16a34a;
+}
+
+.citizen-centres-route-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px 20px;
+  border-top: 1px solid #e8edf3;
+}
+
+.citizen-centres-route-footer > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.citizen-centres-route-footer-icon {
+  width: 37px;
+  height: 37px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.citizen-centres-route-footer > div > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.citizen-centres-route-footer strong {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.citizen-centres-route-footer span {
+  color: #737d90;
+  font-size: 9px;
+}
+
+.citizen-centres-route-footer > button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 7px;
+  background: #047857;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+  .citizen-centres-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .citizen-centres-side-map {
+    position: static;
+  }
+
+  .citizen-centres-side-map-body {
+    height: 360px;
+  }
+}
+
+@media (max-width: 720px) {
+  .citizen-centres-page {
+    padding: 17px;
+  }
+
+  .citizen-centres-header {
+    flex-direction: column;
+  }
+
+  .citizen-centres-location-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .citizen-centres-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .citizen-centres-filters {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .citizen-centres-filters button {
+    flex-shrink: 0;
+  }
+
+  .citizen-centres-search {
+    width: 100%;
+  }
+
+  .citizen-centre-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .citizen-centre-actions {
+    width: 100%;
+  }
+
+  .citizen-centre-map-button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .citizen-centre-call-button {
+    width: 40px;
+  }
+
+  .citizen-centres-route-overlay {
+    padding: 0;
+  }
+
+  .citizen-centres-route-panel {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .citizen-centres-route-map {
+    flex: 1;
+    height: auto;
+    min-height: 300px;
+  }
+
+  .citizen-centres-route-footer {
+    padding-bottom: calc(
+      13px + env(safe-area-inset-bottom)
+    );
+  }
+}
+
+/* =========================================================
+   CITIZEN PROFILE
+   ========================================================= */
+
+.citizen-profile-page {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 28px 30px 42px;
+  box-sizing: border-box;
+}
+
+/* HEADER */
+
+.citizen-profile-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.citizen-profile-eyebrow {
+  display: inline-block;
+  margin-bottom: 7px;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.citizen-profile-header h1 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.citizen-profile-header p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+
+.citizen-profile-edit-btn,
+.citizen-profile-save-btn,
+.citizen-profile-cancel-btn,
+.citizen-profile-logout-btn {
+  border: none;
+  border-radius: 10px;
+  min-height: 42px;
+  padding: 0 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.citizen-profile-edit-btn:hover,
+.citizen-profile-save-btn:hover,
+.citizen-profile-cancel-btn:hover,
+.citizen-profile-logout-btn:hover {
+  transform: translateY(-1px);
+}
+
+.citizen-profile-edit-btn {
+  color: #ffffff;
+  background: #2563eb;
+  box-shadow: 0 7px 18px rgba(37, 99, 235, 0.18);
+}
+
+.citizen-profile-edit-btn:hover {
+  background: #1d4ed8;
+}
+
+.citizen-profile-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.citizen-profile-cancel-btn {
+  color: #334155;
+  background: #f1f5f9;
+}
+
+.citizen-profile-cancel-btn:hover {
+  background: #e2e8f0;
+}
+
+.citizen-profile-save-btn {
+  color: #ffffff;
+  background: #16a34a;
+  box-shadow: 0 7px 18px rgba(22, 163, 74, 0.18);
+}
+
+.citizen-profile-save-btn:hover {
+  background: #15803d;
+}
+
+/* SUCCESS */
+
+.citizen-profile-success {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  color: #166534;
+  background: #f0fdf4;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* PROFILE HERO */
+
+.citizen-profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 145px;
+  padding: 25px 27px;
+  margin-bottom: 22px;
+  border: 1px solid #dbe4ef;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f8fbff 100%
+  );
+  box-shadow: 0 7px 24px rgba(15, 23, 42, 0.05);
+}
+
+.citizen-profile-avatar {
+  width: 82px;
+  height: 82px;
+  flex: 0 0 82px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #0f4cbd
+  );
+  font-size: 25px;
+  font-weight: 850;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.22);
+}
+
+.citizen-profile-identity {
+  min-width: 0;
+  flex: 1;
+}
+
+.citizen-profile-identity h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.citizen-profile-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.citizen-profile-identity p {
+  max-width: 650px;
+  margin: 9px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.citizen-profile-account-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 165px;
+  padding: 12px 14px;
+  border: 1px solid #dcfce7;
+  border-radius: 11px;
+  background: #f0fdf4;
+}
+
+.citizen-profile-status-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.11);
+}
+
+.citizen-profile-account-status strong {
+  display: block;
+  color: #166534;
+  font-size: 12px;
+}
+
+.citizen-profile-account-status small {
+  display: block;
+  margin-top: 3px;
+  color: #4d7c5b;
+  font-size: 10px;
+}
+
+/* GRID */
+
+.citizen-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* CARD */
+
+.citizen-profile-card {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #dbe4ef;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.citizen-profile-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.citizen-profile-card-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.citizen-profile-card-icon.emergency {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.citizen-profile-card-icon.security {
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.citizen-profile-card-header h3 {
+  margin: 1px 0 0;
+  color: #172033;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.citizen-profile-card-header p {
+  margin: 4px 0 0;
+  color: #7a8798;
+  font-size: 11px;
+}
+
+/* FIELDS */
+
+.citizen-profile-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+  padding-top: 19px;
+}
+
+.citizen-profile-field {
+  min-width: 0;
+}
+
+.citizen-profile-field-full {
+  grid-column: 1 / -1;
+}
+
+.citizen-profile-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.citizen-profile-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.citizen-profile-input-wrap svg {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.citizen-profile-input-wrap input {
+  width: 100%;
+  height: 43px;
+  box-sizing: border-box;
+  padding: 0 12px 0 39px;
+  border: 1px solid #d7e0eb;
+  border-radius: 9px;
+  outline: none;
+  color: #1e293b;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.citizen-profile-input-wrap input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.citizen-profile-input-wrap input:disabled {
+  color: #475569;
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
+.citizen-profile-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 92px;
+  padding: 11px 12px;
+  border: 1px solid #d7e0eb;
+  border-radius: 9px;
+  outline: none;
+  color: #1e293b;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.citizen-profile-field textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.citizen-profile-field textarea:disabled {
+  color: #475569;
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
+.citizen-profile-help {
+  display: block;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 9px;
+}
+
+/* INFO NOTE */
+
+.citizen-profile-info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 18px;
+  padding: 11px 12px;
+  border: 1px solid #dbeafe;
+  border-radius: 9px;
+  color: #1e40af;
+  background: #eff6ff;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.citizen-profile-info-note svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+/* PREFERENCES */
+
+.citizen-profile-preferences {
+  padding-top: 3px;
+}
+
+.citizen-profile-preference-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 17px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.citizen-profile-preference-row:last-child {
+  border-bottom: none;
+  padding-bottom: 2px;
+}
+
+.citizen-profile-preference-info {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.citizen-profile-preference-icon {
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.citizen-profile-preference-info strong {
+  display: block;
+  color: #334155;
+  font-size: 12px;
+}
+
+.citizen-profile-preference-info span {
+  display: block;
+  max-width: 330px;
+  margin-top: 3px;
+  color: #8a97a8;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.citizen-profile-preference-row select {
+  min-width: 125px;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #d7e0eb;
+  border-radius: 8px;
+  outline: none;
+  color: #334155;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.citizen-profile-preference-row select:disabled {
+  color: #64748b;
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
+/* TOGGLE */
+
+.citizen-profile-switch {
+  position: relative;
+  width: 45px;
+  height: 25px;
+  flex: 0 0 45px;
+}
+
+.citizen-profile-switch input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.citizen-profile-slider {
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.citizen-profile-slider::before {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.18);
+  transition: 0.2s ease;
+}
+
+.citizen-profile-switch input:checked + .citizen-profile-slider {
+  background: #2563eb;
+}
+
+.citizen-profile-switch input:checked + .citizen-profile-slider::before {
+  transform: translateX(20px);
+}
+
+.citizen-profile-switch input:disabled + .citizen-profile-slider {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* SECURITY */
+
+.citizen-profile-security-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 19px;
+}
+
+.citizen-profile-security-content strong {
+  display: block;
+  color: #334155;
+  font-size: 12px;
+}
+
+.citizen-profile-security-content span:not(.citizen-profile-protected) {
+  display: block;
+  max-width: 430px;
+  margin-top: 4px;
+  color: #8793a3;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.citizen-profile-protected {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: #15803d;
+  background: #f0fdf4;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+/* LOGOUT */
+
+.citizen-profile-logout-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 18px;
+  padding: 20px 22px;
+  border: 1px solid #fee2e2;
+  border-radius: 14px;
+  background: #fffafa;
+}
+
+.citizen-profile-logout-card h3 {
+  margin: 0;
+  color: #991b1b;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.citizen-profile-logout-card p {
+  margin: 5px 0 0;
+  color: #9f6a6a;
+  font-size: 11px;
+}
+
+.citizen-profile-logout-btn {
+  color: #ffffff;
+  background: #dc2626;
+}
+
+.citizen-profile-logout-btn:hover {
+  background: #b91c1c;
+}
+
+/* LOADING */
+
+.citizen-profile-loading {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .citizen-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .citizen-profile-account-status {
+    min-width: 145px;
+  }
+}
+
+@media (max-width: 760px) {
+  .citizen-profile-page {
+    padding: 20px 16px 32px;
+  }
+
+  .citizen-profile-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .citizen-profile-header-actions {
+    width: 100%;
+  }
+
+  .citizen-profile-header-actions button {
+    flex: 1;
+  }
+
+  .citizen-profile-edit-btn {
+    width: 100%;
+  }
+
+  .citizen-profile-hero {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .citizen-profile-account-status {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .citizen-profile-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .citizen-profile-field-full {
+    grid-column: auto;
+  }
+
+  .citizen-profile-card {
+    padding: 18px;
+  }
+
+  .citizen-profile-preference-row {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .citizen-profile-header h1 {
+    font-size: 25px;
+  }
+
+  .citizen-profile-header-actions {
+    flex-direction: column;
+  }
+
+  .citizen-profile-header-actions button {
+    width: 100%;
+  }
+
+  .citizen-profile-avatar {
+    width: 68px;
+    height: 68px;
+    flex-basis: 68px;
+    font-size: 21px;
+  }
+
+  .citizen-profile-identity h2 {
+    font-size: 19px;
+  }
+
+  .citizen-profile-logout-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .citizen-profile-logout-btn {
+    width: 100%;
+  }
+
+  .citizen-profile-preference-row {
+    flex-direction: column;
+  }
+
+  .citizen-profile-preference-row select {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   CITIZEN DASHBOARD
+   ========================================================= */
+
+.citizen-page {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 30px 34px 45px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.citizen-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 28px;
+}
+
+.citizen-page-header > div:first-child {
+  min-width: 0;
+}
+
+.citizen-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #60a5fa;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.citizen-eyebrow svg {
+  flex-shrink: 0;
+}
+
+.citizen-page-header h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.citizen-page-header p {
+  margin: 10px 0 0;
+  max-width: 700px;
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   SAFETY STATUS
+   ========================================================= */
+
+.citizen-status-card {
+  min-width: 225px;
+  padding: 15px 17px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  background: #0b1b2d;
+}
+
+.citizen-status-card > svg {
+  flex-shrink: 0;
+  color: #22c55e;
+}
+
+.citizen-status-card span {
+  display: block;
+  margin-bottom: 4px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.citizen-status-card strong {
+  display: block;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+/* =========================================================
+   SAFE / NO ALERT CARD
+   ========================================================= */
+
+.citizen-safe-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  margin-bottom: 22px;
+  border: 1px solid #1e3a5f;
+  border-radius: 15px;
+  background: #0b1b2d;
+}
+
+.citizen-safe-icon {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.citizen-card-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.citizen-safe-card h2 {
+  margin: 0;
+  color: #f1f5f9;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.citizen-safe-card p {
+  margin: 7px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   EMERGENCY CARD
+   ========================================================= */
+
+.citizen-emergency-card {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+  padding: 25px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(127, 29, 29, 0.25),
+      rgba(11, 27, 45, 0.98) 45%
+    );
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+.citizen-emergency-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #ef4444;
+}
+
+/* =========================================================
+   EMERGENCY HEADER
+   ========================================================= */
+
+.citizen-emergency-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.13);
+}
+
+.citizen-emergency-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+
+.citizen-emergency-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.13);
+}
+
+.citizen-emergency-title span {
+  display: block;
+  margin-bottom: 5px;
+  color: #fca5a5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.citizen-emergency-title h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 23px;
+  line-height: 1.2;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.citizen-active-badge {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 20px;
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+/* =========================================================
+   ALERT DETAILS
+   ========================================================= */
+
+.citizen-alert-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.citizen-alert-grid > div {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.52);
+}
+
+.citizen-alert-grid span {
+  display: block;
+  margin-bottom: 7px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.citizen-alert-grid strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+/* =========================================================
+   ALERT MESSAGE
+   ========================================================= */
+
+.citizen-alert-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(248, 113, 113, 0.18);
+  border-radius: 10px;
+  background: rgba(127, 29, 29, 0.14);
+}
+
+.citizen-alert-message svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #f87171;
+}
+
+.citizen-alert-message p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   RECOMMENDED ACTION
+   ========================================================= */
+
+.citizen-recommended-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 16px;
+  padding: 17px;
+  border: 1px solid rgba(96, 165, 250, 0.18);
+  border-radius: 10px;
+  background: rgba(30, 64, 175, 0.12);
+}
+
+.citizen-recommended-action > svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #60a5fa;
+}
+
+.citizen-recommended-action strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #dbeafe;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.citizen-recommended-action p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.citizen-alert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.citizen-primary-btn,
+.citizen-secondary-btn,
+.citizen-danger-btn {
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 750;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.citizen-primary-btn:hover,
+.citizen-secondary-btn:hover,
+.citizen-danger-btn:hover {
+  transform: translateY(-1px);
+}
+
+.citizen-primary-btn {
+  color: #ffffff;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.citizen-primary-btn:hover {
+  background: #1d4ed8;
+}
+
+.citizen-secondary-btn {
+  color: #cbd5e1;
+  background: #17283d;
+  border: 1px solid #29415d;
+}
+
+.citizen-secondary-btn:hover {
+  background: #1d344d;
+  border-color: #3b5b7c;
+}
+
+.citizen-danger-btn {
+  color: #ffffff;
+  background: #dc2626;
+  border: 1px solid #dc2626;
+}
+
+.citizen-danger-btn:hover {
+  background: #b91c1c;
+}
+
+/* =========================================================
+   FEATURE CARDS
+   ========================================================= */
+
+.citizen-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.citizen-feature-card {
+  min-width: 0;
+  min-height: 130px;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  border: 1px solid #1e3a5f;
+  border-radius: 14px;
+  background: #0b1b2d;
+  text-decoration: none;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.citizen-feature-card:hover {
+  transform: translateY(-2px);
+  border-color: #31587f;
+  background: #0d2136;
+}
+
+.citizen-feature-card > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #60a5fa;
+}
+
+.citizen-feature-card.danger > svg {
+  color: #f87171;
+}
+
+.citizen-feature-card h3 {
+  margin: 0;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.citizen-feature-card p {
+  margin: 7px 0 0;
+  color: #7f8ea3;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .citizen-page {
+    padding: 26px 24px 40px;
+  }
+
+  .citizen-page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .citizen-status-card {
+    width: 100%;
+  }
+
+  .citizen-alert-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .citizen-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .citizen-page {
+    padding: 20px 16px 35px;
+  }
+
+  .citizen-page-header h1 {
+    font-size: 28px;
+  }
+
+  .citizen-page-header p {
+    font-size: 12px;
+  }
+
+  .citizen-emergency-card {
+    padding: 19px;
+  }
+
+  .citizen-emergency-header {
+    align-items: flex-start;
+  }
+
+  .citizen-emergency-title h2 {
+    font-size: 20px;
+  }
+
+  .citizen-alert-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .citizen-alert-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .citizen-primary-btn,
+  .citizen-secondary-btn,
+  .citizen-danger-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .citizen-page {
+    padding: 17px 12px 30px;
+  }
+
+  .citizen-page-header h1 {
+    font-size: 25px;
+  }
+
+  .citizen-eyebrow {
+    font-size: 10px;
+  }
+
+  .citizen-status-card {
+    min-width: 0;
+  }
+
+  .citizen-emergency-title {
+    align-items: flex-start;
+  }
+
+  .citizen-emergency-icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .citizen-emergency-title h2 {
+    font-size: 18px;
+  }
+
+  .citizen-active-badge {
+    padding: 6px 9px;
+    font-size: 8px;
+  }
+
+  .citizen-feature-card {
+    padding: 17px;
+  }
+}

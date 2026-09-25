@@ -1,0 +1,263 @@
+.location-button {
+  min-height: 43px;
+  padding: 0 16px;
+  border: 1px solid #28638b;
+  border-radius: 9px;
+  background: #0d2940;
+  color: #70c8ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.location-success {
+  margin-bottom: 20px;
+  padding: 13px 16px;
+  border: 1px solid #205747;
+  border-radius: 9px;
+  background: #0c2823;
+  color: #65d5aa;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+}
+
+.shelter-layout {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: 20px;
+}
+
+.shelter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.section-title-small {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.section-title-small h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.section-title-small span {
+  color: #6f91aa;
+  font-size: 12px;
+}
+
+.shelter-card {
+  padding: 18px;
+  border: 1px solid #1b3d57;
+  border-radius: 13px;
+  background: #0a1b2c;
+}
+
+.shelter-card-header {
+  display: flex;
+  gap: 12px;
+}
+
+.shelter-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #123b59;
+  color: #63c3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shelter-card-header h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.shelter-card-header p {
+  margin: 5px 0 0;
+  color: #7696af;
+  font-size: 12px;
+}
+
+.shelter-metrics {
+  display: flex;
+  gap: 17px;
+  margin: 17px 0 13px;
+  color: #b7cde0;
+  font-size: 12px;
+}
+
+.shelter-metrics div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.shelter-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.shelter-features span {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #10283c;
+  color: #8fb0c9;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+}
+
+.shelter-route-button {
+  width: 100%;
+  margin-top: 15px;
+  height: 39px;
+  border: 1px solid #28638b;
+  border-radius: 8px;
+  background: #0d2b43;
+  color: #70c8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.shelter-map-card {
+  min-height: 570px;
+  border: 1px solid #1b3d57;
+  border-radius: 14px;
+  background: #0a1b2c;
+  overflow: hidden;
+}
+
+.map-card-header {
+  height: 67px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #1a374e;
+}
+
+.map-card-header strong {
+  display: block;
+  font-size: 14px;
+}
+
+.map-card-header span {
+  display: block;
+  margin-top: 4px;
+  color: #7192aa;
+  font-size: 11px;
+}
+
+.citizen-map-wrapper {
+  height: 500px;
+}
+
+.location-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(2, 8, 16, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.location-modal {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 30px;
+  border: 1px solid #28506d;
+  border-radius: 16px;
+  background: #0b1c2d;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  color: #7695ad;
+  cursor: pointer;
+}
+
+.location-modal-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 15px;
+  background: #123b59;
+  color: #63c4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-modal h2 {
+  margin: 20px 0 9px;
+  font-size: 22px;
+}
+
+.location-modal p {
+  margin: 0;
+  color: #8ba7bd;
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+.location-modal-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.location-cancel,
+.location-confirm {
+  min-height: 41px;
+  padding: 0 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.location-cancel {
+  border: 1px solid #2a465c;
+  background: transparent;
+  color: #9cb4c7;
+}
+
+.location-confirm {
+  border: 1px solid #2187c4;
+  background: #147cb7;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+@media (max-width: 1000px) {
+  .shelter-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .shelter-map-card {
+    min-height: 500px;
+  }
+}

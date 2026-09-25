@@ -1,0 +1,182 @@
+.citizen-shell {
+  min-height: 100vh;
+  display: flex;
+  background: #06111f;
+  color: #f8fafc;
+}
+
+.citizen-sidebar {
+  width: 294px;
+  min-width: 294px;
+  min-height: 100vh;
+  padding: 28px 17px 16px;
+  background: #081625;
+  border-right: 1px solid #183047;
+  display: flex;
+  flex-direction: column;
+}
+
+.citizen-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 10px 24px;
+  border-bottom: 1px solid #183047;
+}
+
+.citizen-brand-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #12314d;
+  color: #55b7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.citizen-brand strong {
+  display: block;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.citizen-brand span {
+  display: block;
+  margin-top: 4px;
+  color: #7191ad;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.citizen-user-card {
+  margin: 20px 10px 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.citizen-avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: #153c60;
+  color: #6cc3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.citizen-user-card strong {
+  display: block;
+  font-size: 14px;
+}
+
+.citizen-user-card span {
+  display: block;
+  margin-top: 4px;
+  color: #6f91af;
+  font-size: 11px;
+}
+
+.citizen-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.citizen-nav-item {
+  min-height: 49px;
+  padding: 0 13px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #91adc6;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 650;
+  transition: 0.2s ease;
+}
+
+.citizen-nav-item:hover {
+  background: #0e2438;
+  color: #d9edff;
+}
+
+.citizen-nav-item.active {
+  background: #123d61;
+  color: #ffffff;
+  box-shadow: inset 3px 0 0 #51b9ff;
+}
+
+.citizen-nav-item svg {
+  flex-shrink: 0;
+}
+
+.citizen-logout {
+  margin-top: auto;
+  min-height: 49px;
+  border: 1px solid #234059;
+  border-radius: 10px;
+  background: transparent;
+  color: #9ab4cb;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 13px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.citizen-logout:hover {
+  background: #102338;
+  color: #fff;
+}
+
+.citizen-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@media (max-width: 900px) {
+  .citizen-sidebar {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .citizen-brand strong {
+    font-size: 17px;
+  }
+
+  .citizen-nav-item {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 700px) {
+  .citizen-shell {
+    display: block;
+  }
+
+  .citizen-sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+  }
+
+  .citizen-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .citizen-logout {
+    margin-top: 15px;
+  }
+}
