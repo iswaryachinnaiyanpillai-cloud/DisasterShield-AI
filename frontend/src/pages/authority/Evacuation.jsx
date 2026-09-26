@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Route,
@@ -20,9 +20,27 @@ function Evacuation() {
 
   const evacuation = state?.evacuation || {};
 
+  const [formData, setFormData] = useState({
+    peopleNotified:
+      evacuation.peopleNotified ?? "",
+
+    evacuating:
+      evacuation.evacuating ?? "",
+
+    reachedShelter:
+      evacuation.reachedShelter ?? "",
+
+    remainingAtRisk:
+      evacuation.remainingAtRisk ?? "",
+  });
+
   const canStart =
     Boolean(state?.officialAlert) &&
     (state?.citizenSOS?.length || 0) > 0;
+
+  // =========================================
+  // START EVACUATION
+  // =========================================
 
   function handleStart() {
     if (!canStart) {
@@ -32,55 +50,149 @@ function Evacuation() {
       return;
     }
 
+    // Initially all evacuation values are empty.
+    // Authority must enter the actual values manually.
     startEvacuation({
-      peopleNotified: 100,
-      evacuation: 0,
-      reachedShelter: 0,
-      remainingAtRisk: 100,
-      assistanceRequired: 0,
+      peopleNotified: null,
+      evacuating: null,
+      reachedShelter: null,
+      remainingAtRisk: null,
+      assistanceRequired: null,
       completion: 0,
     });
 
     setState(getEmergencyState());
+
+    setFormData({
+      peopleNotified: "",
+      evacuating: "",
+      reachedShelter: "",
+      remainingAtRisk: "",
+    });
   }
 
-  function increaseEvacuating() {
-    const next = Math.min(
-      (evacuation.evacuating || 0) + 10,
-      evacuation.peopleNotified || 100
+  // =========================================
+  // UPDATE EVACUATION PROGRESS
+  // =========================================
+
+  function handleUpdateProgress() {
+    // Do not allow empty values to be saved as 0.
+    if (
+      formData.peopleNotified === "" ||
+      formData.evacuating === "" ||
+      formData.reachedShelter === "" ||
+      formData.remainingAtRisk === ""
+    ) {
+      window.alert(
+        "Please enter all evacuation values before updating."
+      );
+      return;
+    }
+
+    const peopleNotified = Math.max(
+      0,
+      Number(formData.peopleNotified) || 0
     );
 
-    const remaining = Math.max(
-      (evacuation.remainingAtRisk || 0) - 10,
-      0
+    const evacuating = Math.max(
+      0,
+      Number(formData.evacuating) || 0
     );
 
-    const reached = Math.min(
-      (evacuation.reachedShelter || 0) + 5,
-      evacuation.peopleNotified || 100
+    const reachedShelter = Math.max(
+      0,
+      Number(formData.reachedShelter) || 0
     );
 
-    const completion = Math.round(
-      (reached /
-        Math.max(
-          evacuation.peopleNotified || 1,
-          1
-        )) *
-        100
+    const remainingAtRisk = Math.max(
+      0,
+      Number(formData.remainingAtRisk) || 0
     );
+
+    // =========================================
+    // VALIDATION
+    // =========================================
+
+    if (evacuating > peopleNotified) {
+      window.alert(
+        "Evacuating cannot be greater than People Notified."
+      );
+      return;
+    }
+
+    if (reachedShelter > peopleNotified) {
+      window.alert(
+        "Reached Shelter cannot be greater than People Notified."
+      );
+      return;
+    }
+
+    if (remainingAtRisk > peopleNotified) {
+      window.alert(
+        "Remaining at Risk cannot be greater than People Notified."
+      );
+      return;
+    }
+
+    // =========================================
+    // COMPLETION
+    // =========================================
+
+    const completion =
+      peopleNotified > 0
+        ? Math.round(
+            (reachedShelter /
+              peopleNotified) *
+              100
+          )
+        : 0;
+
+    // =========================================
+    // SAVE EXACT AUTHORITY-ENTERED VALUES
+    // =========================================
 
     updateEvacuation({
-      evacuating: next,
-      remainingAtRisk: remaining,
-      reachedShelter: reached,
+      peopleNotified,
+      evacuating,
+      reachedShelter,
+      remainingAtRisk,
       completion,
     });
 
     setState(getEmergencyState());
+
+    setFormData({
+      peopleNotified,
+      evacuating,
+      reachedShelter,
+      remainingAtRisk,
+    });
+
+    window.alert(
+      "Evacuation progress updated successfully."
+    );
+  }
+
+  // =========================================
+  // HANDLE INPUT CHANGES
+  // =========================================
+
+  function handleInputChange(
+    field,
+    value
+  ) {
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
   }
 
   return (
     <div className="authority-page">
+      {/* =========================================
+          HEADER
+          ========================================= */}
+
       <div className="authority-topbar">
         <div>
           <div className="authority-eyebrow">
@@ -96,11 +208,17 @@ function Evacuation() {
         </div>
       </div>
 
+      {/* =========================================
+          EVACUATION NOT ACTIVE
+          ========================================= */}
+
       {!evacuation.active ? (
         <div className="evacuation-standby">
           <Route size={44} />
 
-          <h3>Evacuation operation not active</h3>
+          <h3>
+            Evacuation operation not active
+          </h3>
 
           <p>
             Evacuation is activated only after an
@@ -117,12 +235,16 @@ function Evacuation() {
         </div>
       ) : (
         <>
+          {/* =========================================
+              COMPLETION
+              ========================================= */}
+
           <div className="evacuation-progress-card">
             <div>
               <span>COMPLETION</span>
 
               <strong>
-                {evacuation.completion || 0}%
+                {evacuation.completion ?? 0}%
               </strong>
             </div>
 
@@ -130,50 +252,137 @@ function Evacuation() {
               <div
                 style={{
                   width: `${
-                    evacuation.completion || 0
+                    evacuation.completion ?? 0
                   }%`,
                 }}
               />
             </div>
           </div>
 
+          {/* =========================================
+              EVACUATION DATA
+              ========================================= */}
+
           <div className="response-grid">
+
+            {/* =======================================
+                PEOPLE NOTIFIED
+                ======================================= */}
+
             <div className="response-card">
               <Users size={22} />
-              <span>People Notified</span>
-              <strong>
-                {evacuation.peopleNotified || 0}
-              </strong>
+
+              <span>
+                People Notified
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                placeholder="Enter value"
+                value={
+                  formData.peopleNotified
+                }
+                onChange={(event) =>
+                  handleInputChange(
+                    "peopleNotified",
+                    event.target.value
+                  )
+                }
+              />
             </div>
+
+            {/* =======================================
+                EVACUATING
+                ======================================= */}
 
             <div className="response-card">
               <Route size={22} />
-              <span>Evacuating</span>
-              <strong>
-                {evacuation.evacuating || 0}
-              </strong>
+
+              <span>
+                Evacuating
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                placeholder="Enter value"
+                value={
+                  formData.evacuating
+                }
+                onChange={(event) =>
+                  handleInputChange(
+                    "evacuating",
+                    event.target.value
+                  )
+                }
+              />
             </div>
+
+            {/* =======================================
+                REACHED SHELTER
+                ======================================= */}
 
             <div className="response-card">
               <CheckCircle2 size={22} />
-              <span>Reached Shelter</span>
-              <strong>
-                {evacuation.reachedShelter || 0}
-              </strong>
+
+              <span>
+                Reached Shelter
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                placeholder="Enter value"
+                value={
+                  formData.reachedShelter
+                }
+                onChange={(event) =>
+                  handleInputChange(
+                    "reachedShelter",
+                    event.target.value
+                  )
+                }
+              />
             </div>
+
+            {/* =======================================
+                REMAINING AT RISK
+                ======================================= */}
 
             <div className="response-card">
               <AlertTriangle size={22} />
-              <span>Remaining at Risk</span>
-              <strong>
-                {evacuation.remainingAtRisk || 0}
-              </strong>
+
+              <span>
+                Remaining at Risk
+              </span>
+
+              <input
+                type="number"
+                min="0"
+                placeholder="Enter value"
+                value={
+                  formData.remainingAtRisk
+                }
+                onChange={(event) =>
+                  handleInputChange(
+                    "remainingAtRisk",
+                    event.target.value
+                  )
+                }
+              />
             </div>
           </div>
 
+          {/* =========================================
+              UPDATE BUTTON
+              ========================================= */}
+
           <button
             className="primary-authority-button"
-            onClick={increaseEvacuating}
+            onClick={
+              handleUpdateProgress
+            }
           >
             Update Evacuation Progress
           </button>

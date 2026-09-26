@@ -8,6 +8,8 @@ const initialState = {
 
   rescueTeams: [],
 
+  shelterOccupancy: {},
+
   evacuation: {
     active: false,
     peopleNotified: 0,
@@ -259,4 +261,19 @@ export function updateEvacuation(
   saveState(state);
 
   return state.evacuation;
+}
+export function markShelterReached(shelterId) {
+  const state = getEmergencyState();
+
+  const currentCount =
+    state.shelterOccupancy?.[shelterId] || 0;
+
+  state.shelterOccupancy = {
+    ...state.shelterOccupancy,
+    [shelterId]: currentCount + 1,
+  };
+
+  saveState(state);
+
+  return state.shelterOccupancy;
 }

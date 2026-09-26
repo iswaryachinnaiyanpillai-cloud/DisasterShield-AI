@@ -28,6 +28,11 @@ import {
   X,
 } from "lucide-react";
 
+import {
+  getShelters,
+  recordShelterArrival,
+} from "../../services/shelterService";
+
 /* =========================================================
    DEFAULT MAP CENTER
    ========================================================= */
@@ -38,52 +43,7 @@ const DEFAULT_CENTER = [8.0883, 77.5385];
    SHELTER DATA
    ========================================================= */
 
-const shelterData = [
-  {
-    id: 1,
-    name: "Community Safe Shelter",
-    description:
-      "Emergency shelter with essential facilities",
-    latOffset: 0.012,
-    lngOffset: 0.008,
-    capacity: 250,
-    available: 82,
-    accessibility: true,
-    medical: true,
-    food: true,
-    water: true,
-  },
 
-  {
-    id: 2,
-    name: "Government Relief Centre",
-    description:
-      "Government-managed emergency shelter",
-    latOffset: -0.009,
-    lngOffset: 0.014,
-    capacity: 400,
-    available: 145,
-    accessibility: true,
-    medical: true,
-    food: true,
-    water: true,
-  },
-
-  {
-    id: 3,
-    name: "Emergency Support Centre",
-    description:
-      "Emergency accommodation and support",
-    latOffset: 0.004,
-    lngOffset: -0.014,
-    capacity: 180,
-    available: 61,
-    accessibility: true,
-    medical: true,
-    food: true,
-    water: true,
-  },
-];
 
 /* =========================================================
    SHELTER MARKER
@@ -242,6 +202,37 @@ export default function SmartShelter() {
   const [liveLocation, setLiveLocation] =
     useState(null);
 
+  const [shelterList, setShelterList] =
+    useState(() => getShelters());
+
+  useEffect(() => {
+    const refreshShelters = () => {
+      setShelterList(getShelters());
+    };
+
+    window.addEventListener(
+      "disasterShieldSheltersChanged",
+      refreshShelters
+    );
+
+    window.addEventListener(
+      "storage",
+      refreshShelters
+    );
+
+    return () => {
+      window.removeEventListener(
+        "disasterShieldSheltersChanged",
+        refreshShelters
+      );
+
+      window.removeEventListener(
+        "storage",
+        refreshShelters
+      );
+    };
+  }, []);
+
   const [locationName, setLocationName] =
     useState("");
 
@@ -264,6 +255,13 @@ export default function SmartShelter() {
     useState(null);
 
   const [routing, setRouting] =
+    useState(false);
+
+  /* =======================================================
+     REACHED SHELTER STATUS
+     ======================================================= */
+
+  const [hasReachedShelter, setHasReachedShelter] =
     useState(false);
 
   /* =======================================================
@@ -400,7 +398,7 @@ export default function SmartShelter() {
         ]
       : DEFAULT_CENTER;
 
-    return shelterData.map(
+    return shelterList.map(
       (shelter) => {
         const latitude =
           center[0] +
@@ -423,10 +421,14 @@ export default function SmartShelter() {
           latitude,
           longitude,
           distance,
+          available: Math.max(
+            0,
+            shelter.capacity - shelter.occupancy
+          ),
         };
       }
     );
-  }, [liveLocation]);
+  }, [liveLocation, shelterList]);
 
   /* =======================================================
      FILTER SHELTERS
@@ -445,166 +447,452 @@ export default function SmartShelter() {
      START SAFE NAVIGATION
      ======================================================= */
 
-  const startNavigation = async (
-    shelter
-  ) => {
-    /* -----------------------------------------------
-       LOCATION REQUIRED
-       ----------------------------------------------- */
+ /* =======================================================
+   START SAFE NAVIGATION
+   ======================================================= */
 
-    if (!liveLocation) {
-      setLocationError(
-        "Please allow location access before starting navigation."
+const startNavigation = async (
+  shelter
+) => {
+  /* -----------------------------------------------
+     SELECT SHELTER
+     ----------------------------------------------- */
+
+  setSelectedShelter(shelter);
+
+  /* -----------------------------------------------
+     NEW NAVIGATION
+     ----------------------------------------------- */
+
+  setHasReachedShelter(false);
+  setRouting(true);
+  setRouteCoordinates([]);
+  setRouteDistance(null);
+  setRouteDuration(null);
+  setLocationError("");
+
+  try {
+    /* ---------------------------------------------
+       START LOCATION
+
+       Use live location when available.
+       Otherwise use the map's default center.
+       --------------------------------------------- */
+
+    const startLocation = liveLocation
+      ? {
+          latitude:
+            liveLocation.latitude,
+          longitude:
+            liveLocation.longitude,
+        }
+      : {
+          latitude:
+            DEFAULT_CENTER[0],
+          longitude:
+            DEFAULT_CENTER[1],
+        };
+
+    /* ---------------------------------------------
+       VALIDATE SHELTER LOCATION
+       --------------------------------------------- */
+
+    if (
+      !Number.isFinite(
+        shelter.latitude
+      ) ||
+      !Number.isFinite(
+        shelter.longitude
+      )
+    ) {
+      throw new Error(
+        "Shelter location is invalid."
       );
-
-      return;
     }
 
-    /* -----------------------------------------------
-       SELECT SHELTER
-       ----------------------------------------------- */
+    /* ---------------------------------------------
+       REQUEST MULTIPLE ROUTES
 
-    setSelectedShelter(
-      shelter
+       alternatives=true asks OSRM for
+       alternative road routes.
+
+       We will compare them and select
+       the shortest route that does not
+       pass through the RED danger zone.
+       --------------------------------------------- */
+
+    const url =
+      `https://router.project-osrm.org/route/v1/driving/` +
+      `${startLocation.longitude},${startLocation.latitude};` +
+      `${shelter.longitude},${shelter.latitude}` +
+      `?overview=full&geometries=geojson&steps=true&alternatives=true`;
+
+    console.log(
+      "Requesting safe route:",
+      url
     );
 
-    setRouting(true);
+    const response =
+      await fetch(url);
 
-    setRouteCoordinates([]);
-
-    setRouteDistance(null);
-
-    setRouteDuration(null);
-
-    setLocationError("");
-
-    try {
-      /* ---------------------------------------------
-         OSRM ROAD ROUTE
-         --------------------------------------------- */
-
-      const url =
-        `https://router.project-osrm.org/route/v1/driving/` +
-        `${liveLocation.longitude},${liveLocation.latitude};` +
-        `${shelter.longitude},${shelter.latitude}` +
-        `?overview=full&geometries=geojson&steps=true`;
-
-      console.log(
-        "Requesting route:",
-        url
+    if (!response.ok) {
+      throw new Error(
+        `Route server returned ${response.status}`
       );
+    }
 
-      const response =
-        await fetch(url);
+    const data =
+      await response.json();
 
-      if (!response.ok) {
-        throw new Error(
-          `Route server returned ${response.status}`
+    console.log(
+      "OSRM routes:",
+      data
+    );
+
+    /* ---------------------------------------------
+       CHECK ROUTES
+       --------------------------------------------- */
+
+    if (
+      data.code !== "Ok" ||
+      !data.routes ||
+      data.routes.length === 0
+    ) {
+      throw new Error(
+        "No road route was found."
+      );
+    }
+
+    /* ---------------------------------------------
+       DANGER ZONE
+
+       These values match the RED danger
+       circle already displayed on your map.
+
+       latitude:
+       current location - 0.007
+
+       longitude:
+       current location - 0.006
+
+       radius:
+       380 metres
+       --------------------------------------------- */
+
+    const dangerCenter =
+      liveLocation
+        ? {
+            latitude:
+              liveLocation.latitude -
+              0.007,
+            longitude:
+              liveLocation.longitude -
+              0.006,
+          }
+        : {
+            latitude:
+              DEFAULT_CENTER[0] -
+              0.007,
+            longitude:
+              DEFAULT_CENTER[1] -
+              0.006,
+          };
+
+    const dangerRadius =
+      380;
+
+    /* ---------------------------------------------
+       DISTANCE BETWEEN TWO MAP POINTS
+       --------------------------------------------- */
+
+    const distanceBetweenPoints = (
+      lat1,
+      lon1,
+      lat2,
+      lon2
+    ) => {
+      const earthRadius = 6371000;
+
+      const dLat =
+        ((lat2 - lat1) *
+          Math.PI) /
+        180;
+
+      const dLon =
+        ((lon2 - lon1) *
+          Math.PI) /
+        180;
+
+      const a =
+        Math.sin(dLat / 2) *
+          Math.sin(dLat / 2) +
+        Math.cos(
+          (lat1 * Math.PI) /
+            180
+        ) *
+          Math.cos(
+            (lat2 * Math.PI) /
+              180
+          ) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+
+      const c =
+        2 *
+        Math.atan2(
+          Math.sqrt(a),
+          Math.sqrt(1 - a)
         );
-      }
 
-      const data =
-        await response.json();
+      return earthRadius * c;
+    };
 
-      console.log(
-        "OSRM response:",
-        data
-      );
+    /* ---------------------------------------------
+       CHECK WHETHER A ROUTE ENTERS RED ZONE
+       --------------------------------------------- */
 
-      /* ---------------------------------------------
-         CHECK ROUTE
-         --------------------------------------------- */
-
+    const routeTouchesDangerZone = (
+      route
+    ) => {
       if (
-        data.code !== "Ok" ||
-        !data.routes ||
-        data.routes.length === 0
+        !route.geometry ||
+        !route.geometry.coordinates
       ) {
-        throw new Error(
-          "No road route was found."
-        );
+        return true;
       }
 
-      const route =
-        data.routes[0];
+      return route.geometry.coordinates.some(
+        ([longitude, latitude]) => {
+          const distance =
+            distanceBetweenPoints(
+              latitude,
+              longitude,
+              dangerCenter.latitude,
+              dangerCenter.longitude
+            );
 
-      /* ---------------------------------------------
-         CONVERT OSRM COORDINATES
+          return (
+            distance <=
+            dangerRadius
+          );
+        }
+      );
+    };
 
-         OSRM:
-         [longitude, latitude]
+    /* ---------------------------------------------
+       CONVERT ROUTE DATA
 
-         Leaflet:
-         [latitude, longitude]
-         --------------------------------------------- */
+       OSRM:
+       [longitude, latitude]
 
+       Leaflet:
+       [latitude, longitude]
+       --------------------------------------------- */
+
+    const prepareRoute = (
+      route
+    ) => {
       const coordinates =
         route.geometry.coordinates.map(
-          ([longitude, latitude]) => [
+          ([
+            longitude,
+            latitude,
+          ]) => [
             latitude,
             longitude,
           ]
         );
 
-      if (
-        coordinates.length === 0
-      ) {
-        throw new Error(
-          "Route contains no coordinates."
+      return {
+        route,
+        coordinates,
+        distance:
+          route.distance,
+        duration:
+          route.duration,
+        unsafe:
+          routeTouchesDangerZone(
+            route
+          ),
+      };
+    };
+
+    /* ---------------------------------------------
+       PREPARE ALL AVAILABLE ROUTES
+       --------------------------------------------- */
+
+    const candidateRoutes =
+      data.routes.map(
+        prepareRoute
+      );
+
+    console.log(
+      "Candidate routes:",
+      candidateRoutes
+    );
+
+    /* ---------------------------------------------
+       REMOVE ROUTES THAT ENTER
+       THE RED DANGER ZONE
+       --------------------------------------------- */
+
+    const safeRoutes =
+      candidateRoutes.filter(
+        (candidate) =>
+          !candidate.unsafe
+      );
+
+    console.log(
+      "Safe routes:",
+      safeRoutes
+    );
+
+    /* ---------------------------------------------
+       SELECT ROUTE
+
+       If safe alternatives exist:
+         choose the shortest safe route.
+
+       If every route intersects the
+       danger zone:
+         use the shortest available
+         route as a fallback.
+       --------------------------------------------- */
+
+    let selectedRoute;
+
+    if (
+      safeRoutes.length > 0
+    ) {
+      selectedRoute =
+        safeRoutes.reduce(
+          (
+            shortest,
+            current
+          ) =>
+            current.distance <
+            shortest.distance
+              ? current
+              : shortest
         );
-      }
 
-      /* ---------------------------------------------
-         SAVE ROUTE
-         --------------------------------------------- */
-
-      setRouteCoordinates(
-        coordinates
+      console.log(
+        "Selected shortest SAFE route:",
+        selectedRoute
       );
+    } else {
+      selectedRoute =
+        candidateRoutes.reduce(
+          (
+            shortest,
+            current
+          ) =>
+            current.distance <
+            shortest.distance
+              ? current
+              : shortest
+        );
 
-      /* ---------------------------------------------
-         DISTANCE
-         --------------------------------------------- */
-
-      setRouteDistance(
-        (
-          route.distance / 1000
-        ).toFixed(2)
+      console.warn(
+        "No completely safe alternative was found. Using shortest available route."
       );
-
-      /* ---------------------------------------------
-         TIME
-         --------------------------------------------- */
-
-      setRouteDuration(
-        Math.max(
-          1,
-          Math.round(
-            route.duration / 60
-          )
-        )
-      );
-
-      /* ---------------------------------------------
-         ROUTE SUCCESS
-         --------------------------------------------- */
-
-      setLocationError("");
-
-    } catch (error) {
-      console.error(
-        "Navigation error:",
-        error
-      );
-
-      setRouteCoordinates([]);
-
-      setLocationError(
-        "Unable to calculate the road route. Please check your internet connection and try again."
-      );
-    } finally {
-      setRouting(false);
     }
+
+    /* ---------------------------------------------
+       CHECK COORDINATES
+       --------------------------------------------- */
+
+    if (
+      !selectedRoute.coordinates ||
+      selectedRoute.coordinates
+        .length === 0
+    ) {
+      throw new Error(
+        "Selected route contains no coordinates."
+      );
+    }
+
+    /* ---------------------------------------------
+       SHOW ROUTE ON MAP
+       --------------------------------------------- */
+
+    setRouteCoordinates(
+      selectedRoute.coordinates
+    );
+
+    /* ---------------------------------------------
+       DISTANCE
+
+       Convert metres → kilometres
+       --------------------------------------------- */
+
+    setRouteDistance(
+      (
+        selectedRoute.distance /
+        1000
+      ).toFixed(2)
+    );
+
+    /* ---------------------------------------------
+       ESTIMATED TIME
+
+       Convert seconds → minutes
+       --------------------------------------------- */
+
+    setRouteDuration(
+      Math.max(
+        1,
+        Math.round(
+          selectedRoute.duration /
+            60
+        )
+      )
+    );
+
+    /* ---------------------------------------------
+       SUCCESS
+       --------------------------------------------- */
+
+    setLocationError("");
+
+  } catch (error) {
+    console.error(
+      "Safe navigation error:",
+      error
+    );
+
+    setRouteCoordinates([]);
+
+    setLocationError(
+      "Unable to calculate a safe road route. Please check your internet connection and try again."
+    );
+
+  } finally {
+    setRouting(false);
+  }
+};
+
+  /* =======================================================
+     MARK SHELTER AS REACHED
+     ======================================================= */
+
+  const handleReachedShelter = () => {
+    if (
+      !selectedShelter ||
+      hasReachedShelter
+    ) {
+      return;
+    }
+
+    recordShelterArrival(
+      selectedShelter.id
+    );
+
+    setShelterList(
+      getShelters()
+    );
+
+    setHasReachedShelter(true);
   };
 
   /* =======================================================
@@ -619,6 +907,8 @@ export default function SmartShelter() {
     setRouteDuration(null);
 
     setSelectedShelter(null);
+
+    setHasReachedShelter(false);
   };
 
   /* =======================================================
@@ -743,7 +1033,9 @@ export default function SmartShelter() {
               setLocationError("")
             }
           >
+
             <X size={16} />
+
           </button>
 
         </div>
@@ -1416,6 +1708,28 @@ export default function SmartShelter() {
                   on the map
 
                 </div>
+
+                {/* =================================================
+                    REACHED SHELTER BUTTON
+                    ================================================= */}
+
+                <button
+                  className="clear-route-button"
+                  onClick={
+                    handleReachedShelter
+                  }
+                  disabled={
+                    hasReachedShelter
+                  }
+                >
+                  {hasReachedShelter
+                    ? "✓ Shelter Reached"
+                    : "Reached Shelter"}
+                </button>
+
+                {/* =================================================
+                    CLEAR ROUTE
+                    ================================================= */}
 
                 <button
                   className="clear-route-button"

@@ -8,6 +8,9 @@ import {
   CheckCircle2,
   Clock3,
   Navigation,
+  Wifi,
+  WifiOff,
+  ArrowRight,
 } from "lucide-react";
 
 import {
@@ -19,6 +22,14 @@ import "./Citizen.css";
 export default function CitizenDashboard() {
   const [emergencyState, setEmergencyState] = useState(
     getEmergencyState()
+  );
+
+  // =========================================
+  // ONLINE / OFFLINE STATUS
+  // =========================================
+
+  const [isOnline, setIsOnline] = useState(
+    navigator.onLine
   );
 
   useEffect(() => {
@@ -39,7 +50,46 @@ export default function CitizenDashboard() {
         refresh
       );
 
-      window.removeEventListener("storage", refresh);
+      window.removeEventListener(
+        "storage",
+        refresh
+      );
+    };
+  }, []);
+
+  // =========================================
+  // DETECT INTERNET CONNECTION
+  // =========================================
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+    };
+
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
+
+    window.addEventListener(
+      "online",
+      handleOnline
+    );
+
+    window.addEventListener(
+      "offline",
+      handleOffline
+    );
+
+    return () => {
+      window.removeEventListener(
+        "online",
+        handleOnline
+      );
+
+      window.removeEventListener(
+        "offline",
+        handleOffline
+      );
     };
   }, []);
 
@@ -47,6 +97,11 @@ export default function CitizenDashboard() {
 
   return (
     <div className="citizen-page">
+
+      {/* =========================================
+          PAGE HEADER
+          ========================================= */}
+
       <div className="citizen-page-header">
         <div>
           <div className="citizen-eyebrow">
@@ -62,6 +117,10 @@ export default function CitizenDashboard() {
           </p>
         </div>
 
+        {/* =========================================
+            SAFETY STATUS
+            ========================================= */}
+
         <div className="citizen-status-card">
           <CheckCircle2 size={21} />
 
@@ -69,11 +128,72 @@ export default function CitizenDashboard() {
             <span>SAFETY STATUS</span>
 
             <strong>
-              {alert ? "Emergency Alert Active" : "Monitoring Active"}
+              {alert
+                ? "Emergency Alert Active"
+                : "Monitoring Active"}
             </strong>
           </div>
         </div>
       </div>
+
+      {/* =========================================
+          ONLINE / OFFLINE MODE CARD
+          ========================================= */}
+
+      <section
+        className={
+          isOnline
+            ? "citizen-connectivity-card online"
+            : "citizen-connectivity-card offline"
+        }
+      >
+        <div className="citizen-connectivity-icon">
+          {isOnline ? (
+            <Wifi size={26} />
+          ) : (
+            <WifiOff size={26} />
+          )}
+        </div>
+
+        <div className="citizen-connectivity-content">
+          <span className="citizen-card-label">
+            CONNECTIVITY STATUS
+          </span>
+
+          <h2>
+            {isOnline
+              ? "Online Mode"
+              : "Offline Mode"}
+          </h2>
+
+          <p>
+            {isOnline
+              ? "Internet connection is available. You can use the normal Citizen Platform and live services."
+              : "No internet connection detected. You can access the dedicated Offline Dashboard and cached emergency information."}
+          </p>
+        </div>
+
+        {/* =========================================
+            OFFLINE DASHBOARD BUTTON
+            ========================================= */}
+
+        {!isOnline && (
+          <a
+            href="/citizen/offline"
+            className="citizen-offline-dashboard-btn"
+          >
+            <span>
+              Open Offline Dashboard
+            </span>
+
+            <ArrowRight size={18} />
+          </a>
+        )}
+      </section>
+
+      {/* =========================================
+          NORMAL ONLINE / EMERGENCY CONTENT
+          ========================================= */}
 
       {!alert ? (
         <section className="citizen-safe-card">
@@ -86,7 +206,9 @@ export default function CitizenDashboard() {
               CURRENT STATUS
             </span>
 
-            <h2>No Official Emergency Alert</h2>
+            <h2>
+              No Official Emergency Alert
+            </h2>
 
             <p>
               There is currently no official emergency
@@ -103,8 +225,13 @@ export default function CitizenDashboard() {
               </div>
 
               <div>
-                <span>OFFICIAL EMERGENCY ALERT</span>
-                <h2>{alert.disasterType}</h2>
+                <span>
+                  OFFICIAL EMERGENCY ALERT
+                </span>
+
+                <h2>
+                  {alert.disasterType}
+                </h2>
               </div>
             </div>
 
@@ -116,22 +243,30 @@ export default function CitizenDashboard() {
           <div className="citizen-alert-grid">
             <div>
               <span>LOCATION</span>
-              <strong>{alert.location}</strong>
+              <strong>
+                {alert.location}
+              </strong>
             </div>
 
             <div>
               <span>CURRENT RISK</span>
-              <strong>{alert.currentRisk}/100</strong>
+              <strong>
+                {alert.currentRisk}/100
+              </strong>
             </div>
 
             <div>
               <span>PREDICTED RISK</span>
-              <strong>{alert.predictedRisk}/100</strong>
+              <strong>
+                {alert.predictedRisk}/100
+              </strong>
             </div>
 
             <div>
               <span>ESTIMATED IMPACT</span>
-              <strong>{alert.estimatedImpact}</strong>
+              <strong>
+                {alert.estimatedImpact}
+              </strong>
             </div>
           </div>
 
@@ -147,7 +282,9 @@ export default function CitizenDashboard() {
             <Clock3 size={19} />
 
             <div>
-              <strong>Recommended Action</strong>
+              <strong>
+                Recommended Action
+              </strong>
 
               <p>
                 {alert.recommendedAction}
@@ -191,6 +328,10 @@ export default function CitizenDashboard() {
         </section>
       )}
 
+      {/* =========================================
+          EXISTING FEATURE CARDS
+          ========================================= */}
+
       <div className="citizen-feature-grid">
         <a
           href="/citizen/shelter"
@@ -199,7 +340,10 @@ export default function CitizenDashboard() {
           <MapPinned size={25} />
 
           <div>
-            <h3>Smart Shelter</h3>
+            <h3>
+              Smart Shelter
+            </h3>
+
             <p>
               Find a suitable safe shelter using your
               current location and safety conditions.
@@ -214,7 +358,10 @@ export default function CitizenDashboard() {
           <ClipboardList size={25} />
 
           <div>
-            <h3>Action Plan</h3>
+            <h3>
+              Action Plan
+            </h3>
+
             <p>
               Follow the recommended steps for your
               current emergency situation.
@@ -229,7 +376,10 @@ export default function CitizenDashboard() {
           <Siren size={25} />
 
           <div>
-            <h3>Emergency SOS</h3>
+            <h3>
+              Emergency SOS
+            </h3>
+
             <p>
               Send your emergency details directly to
               the Authority response team.

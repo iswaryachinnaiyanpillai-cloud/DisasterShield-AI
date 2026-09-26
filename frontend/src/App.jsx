@@ -46,6 +46,11 @@ const CitizenDashboard = lazy(
   () => import("./pages/citizen/CitizenDashboard")
 );
 
+// NEW: OFFLINE DASHBOARD
+const OfflineDashboard = lazy(
+  () => import("./pages/citizen/OfflineDashboard")
+);
+
 const SmartShelter = lazy(
   () => import("./pages/citizen/SmartShelter")
 );
@@ -408,6 +413,9 @@ function App() {
               </RoleGuard>
             }
           >
+
+            {/* CITIZEN DASHBOARD */}
+
             <Route
               index
               element={
@@ -416,6 +424,21 @@ function App() {
                 </LazyPage>
               }
             />
+
+            {/* ========================================
+                NEW OFFLINE DASHBOARD
+            ======================================== */}
+
+            <Route
+              path="offline"
+              element={
+                <LazyPage>
+                  <OfflineDashboard />
+                </LazyPage>
+              }
+            />
+
+            {/* EXISTING SMART SHELTER */}
 
             <Route
               path="shelter"
@@ -426,6 +449,8 @@ function App() {
               }
             />
 
+            {/* EXISTING ACTION PLAN */}
+
             <Route
               path="action-plan"
               element={
@@ -434,6 +459,8 @@ function App() {
                 </LazyPage>
               }
             />
+
+            {/* EXISTING SOS */}
 
             <Route
               path="sos"
@@ -444,6 +471,8 @@ function App() {
               }
             />
 
+            {/* EXISTING EMERGENCY CENTRES */}
+
             <Route
               path="emergency-centres"
               element={
@@ -453,6 +482,8 @@ function App() {
               }
             />
 
+            {/* EXISTING PROFILE */}
+
             <Route
               path="profile"
               element={
@@ -461,6 +492,7 @@ function App() {
                 </LazyPage>
               }
             />
+
           </Route>
 
 
@@ -478,6 +510,7 @@ function App() {
               </RoleGuard>
             }
           >
+
             <Route
               index
               element={
@@ -558,6 +591,7 @@ function App() {
                 </LazyPage>
               }
             />
+
           </Route>
 
 
@@ -582,4 +616,5 @@ function App() {
 }
 
 export default App;
+
 import "./App.css";
